@@ -48,7 +48,7 @@ with open(pybankdata, 'r') as csvfile:
 	revenuechange(revenue)
 	answers(date,revenue,changerev)
 
-output_path = os.path.join("..", "output.text")
+#output_path = os.path.join("..", "output.text")
 
 #with open(output_path, 'a') as output: 
 #	 answeroutput = answers(date,revenue,changerev)
