@@ -16,16 +16,29 @@ def addcandidates(voter,candidates,uni_candidates,Khan,Correy,Li,OTooley):
 		if candidate not in uni_candidates:
 			uni_candidates.append(candidate)
 
-def results(winner,voter,uni_candidates):
-	totalvoters = len(voter)
-	khanpercentage = winner.append(round(len(Khan)/totalvoters * 100))
-	correypercentage = winner.append(round(len(Correy)/totalvoters * 100))
-	lipercentage = winner.append(round(len(Li)/totalvoters * 100))
-	otooleypercentage = winner.append(round(len(OTooley)/totalvoters * 100))
+def getpercentages(winner,voter,uni_candidates):
+	khanpercentage = winner.append(round(len(Khan)/len(voter) * 100))
+	correypercentage = winner.append(round(len(Correy)/len(voter) * 100))
+	lipercentage = winner.append(round(len(Li)/len(voter) * 100))
+	otooleypercentage = winner.append(round(len(OTooley)/len(voter) * 100))
 
+def exportresults():
+	output.write("Election Results"+"\n")
+	output.write("-------------------------"+"\n")
+	output.write("Total Votes: " + str(len(voter))+"\n")
+	output.write("-------------------------"+"\n")
+	output.write("Khan: " + str(winner[0])+"%"+"\n")
+	output.write("Correy: " + str(winner[1])+"%"+"\n")
+	output.write("Li: " + str(winner[2])+"%"+"\n")
+	output.write("O'Tooley: " + str(winner[3])+"%"+"\n")
+	output.write("-------------------------"+"\n")
+	output.write("Winner: " + uni_candidates[winner.index(max(winner))]+"\n")
+	output.write("-------------------------"+"\n")
+
+def printresults():
 	print("Election Results")
 	print("-------------------------")
-	print("Total Votes: " + str(totalvoters))
+	print("Total Votes: " + str(len(voter)))
 	print("-------------------------")
 	print("Khan: " + str(winner[0])+"%")
 	print("Correy: " + str(winner[1])+"%")
@@ -34,7 +47,6 @@ def results(winner,voter,uni_candidates):
 	print("-------------------------")
 	print("Winner: " + uni_candidates[winner.index(max(winner))])
 	print("-------------------------")
-
 
 import os
 import csv 
@@ -54,10 +66,13 @@ with open(pypolldata, 'r') as csvfile:
 	next(csvreader)
 
 	addcandidates(voter,candidates,uni_candidates,Khan,Correy,Li,OTooley)
-	results(winner,voter,uni_candidates)
+	getpercentages(winner,voter,uni_candidates)
+	printresults()
 
 
+output_path = os.path.join("..", "PyPoll_output.text")
 
-
+with open(output_path, 'a') as output: 
+	exportresults()
 
 

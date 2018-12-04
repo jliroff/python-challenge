@@ -12,22 +12,26 @@ def revenuechange(revenue):
 		changerev.append(change)
 
 
-def answers(date,revenue,changerev):
-
-	maximum = max(changerev)
-	minimum = min(changerev)
+def printresults(date,revenue,changerev):
 
 	print()
 	print("Financial Analysis")
 	print("----------------------------")
-
 	print("Total Months: " + str(len(date)))
 	print("Total: " + "$" + str(sum(revenue)))
-
 	print("Average Change:" + "$" + str(round((sum(changerev)/len(revenue)))))
+	print("Greatest Increase in Profits: "+ str(date[changerev.index(max(changerev))]) + " (" + str(max(changerev)) + ")")
+	print("Greatest Decrease in Profits: " + str(date[changerev.index(min(changerev))]) + " (" + str(min(changerev)) + ")")
 
-	print("Greatest Increase in Profits: "+ str(date[changerev.index(maximum)]) + " (" + str(maximum) + ")")
-	print("Greatest Decrease in Profits: " + str(date[changerev.index(minimum)]) + " (" + str(minimum) + ")")
+def exportresults(date,revenue,changerev):
+
+	output.write("Financial Analysis"+"\n")
+	output.write("----------------------------"+"\n")
+	output.write("Total Months: " + str(len(date))+"\n")
+	output.write("Total: " + "$" + str(sum(revenue))+"\n")
+	output.write("Average Change:" + "$" + str(round((sum(changerev)/len(revenue))))+"\n")
+	output.write("Greatest Increase in Profits: "+ str(date[changerev.index(max(changerev))]) + " (" + str(max(changerev)) + ")"+"\n")
+	output.write("Greatest Decrease in Profits: " + str(date[changerev.index(min(changerev))]) + " (" + str(min(changerev)) + ")"+"\n")
 
 
 import os
@@ -35,7 +39,6 @@ import csv
 
 
 pybankdata = os.path.join('..','PyBank_data.csv')
-
 
 with open(pybankdata, 'r') as csvfile:
 	csvreader = csv.reader(csvfile, delimiter=',')
@@ -46,13 +49,10 @@ with open(pybankdata, 'r') as csvfile:
 
 	revenuetotals()
 	revenuechange(revenue)
-	answers(date,revenue,changerev)
+	printresults(date,revenue,changerev)
 
-#output_path = os.path.join("..", "output.text")
+output_path = os.path.join("..", "PyBank_output.text")
 
-#with open(output_path, 'a') as output: 
-#	 answeroutput = answers(date,revenue,changerev)
-#	 output.write(
+with open(output_path, 'a') as output: 
 
-
-
+	exportresults(date,revenue,changerev)
