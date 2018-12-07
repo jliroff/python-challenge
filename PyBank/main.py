@@ -3,7 +3,7 @@ def revenuetotals():
 
 	for row in csvreader:
 		date.append(row[0])
-		revenue.append(int(row[1]))
+		revenue.append(float(row[1]))
 
 def revenuechange(revenue):
 
@@ -18,8 +18,8 @@ def printresults(date,revenue,changerev):
 	print("Financial Analysis")
 	print("----------------------------")
 	print("Total Months: " + str(len(date)))
-	print("Total: " + "$" + str(sum(revenue)))
-	print("Average Change:" + "$" + str(round((sum(changerev)/len(revenue)))))
+	print("Total: " + "$" + str(round(sum(revenue))))
+	print("Average Change:" + "$" + str(round(sum(changerev)/len(changerev),2)))
 	print("Greatest Increase in Profits: "+ str(date[changerev.index(max(changerev))]) + " (" + str(max(changerev)) + ")")
 	print("Greatest Decrease in Profits: " + str(date[changerev.index(min(changerev))]) + " (" + str(min(changerev)) + ")")
 
